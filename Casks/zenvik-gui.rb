@@ -1,9 +1,9 @@
 cask "zenvik-gui" do
   arch arm: "arm64", intel: "amd64"
 
-  version "1.1.2"
-  sha256 arm:   "03f6d254abe5bbe98c0978f15e61260fd670a744046a58d92b7b83c09b442f21",
-         intel: "c98cf9636cd27e1ba49955889bb8c1d9281c592643d80f1deecb3ee2f460fd6c"
+  version "1.2.0"
+  sha256 arm:   "9618e6437cc1a0e1a0332abfd6646cf6fd181547f13744853e5f59c73ace35a9",
+         intel: "0e4d3f4ef3a364b893dda6e6b2a5d7ee5d2278b36e707677a7c8abc84adc24fd"
 
   url "https://github.com/chad3814/zenvik/releases/download/v#{version}/zenvik-gui_#{version}_darwin_#{arch}.dmg"
   name "Zenvik"

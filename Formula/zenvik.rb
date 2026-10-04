@@ -1,8 +1,8 @@
 class Zenvik < Formula
   desc "Remux Blu-ray and DVD disc images to MKV"
   homepage "https://github.com/chad3814/zenvik"
-  url "https://github.com/chad3814/zenvik/archive/refs/tags/v1.1.2.tar.gz"
-  sha256 "31d581a175baa167ac8dc414ac622790a4ddf9611259908925b0fc166bc59c2d"
+  url "https://github.com/chad3814/zenvik/archive/refs/tags/v1.2.0.tar.gz"
+  sha256 "9168aa068131ec1555514e106649cd73dbf3f6e3e8be8121cb737d048e6604a8"
   license "MIT"
   head "https://github.com/chad3814/zenvik.git", branch: "main"
 
