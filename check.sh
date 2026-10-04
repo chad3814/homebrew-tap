@@ -3,19 +3,26 @@
 # push; zenvik's release workflow runs it on a freshly rendered bump before
 # pushing that bump here.
 #
-#   ./check.sh                 # formula and cask (macOS)
+#   ./check.sh                 # formula, and in CI the cask (macOS)
 #   ./check.sh --formula-only  # formula only (Linux)
+#   ./check.sh --with-cask     # formula and cask, outside CI too
+#
+# The cask half installs Zenvik.app into /Applications and then uninstalls it
+# with --zap, which deletes the app's settings and saved queue. So on your
+# own Mac it only runs when asked for.
 #
 # It links this checkout in as the chad3814/tap tap (so the files on disk,
 # committed or not, are what's checked), then audits, installs and tests.
 set -Eeuo pipefail
 
-formula_only=0
+cask=0
+[[ ${CI:-} == true ]] && cask=1
 case ${1:-} in
 "") ;;
---formula-only) formula_only=1 ;;
+--formula-only) cask=0 ;;
+--with-cask) cask=1 ;;
 *)
-	echo "usage: $0 [--formula-only]" >&2
+	echo "usage: $0 [--formula-only | --with-cask]" >&2
 	exit 2
 	;;
 esac
@@ -67,7 +74,7 @@ brew install --build-from-source chad3814/tap/zenvik
 step "test the zenvik formula"
 brew test chad3814/tap/zenvik
 
-if [[ $formula_only == 0 ]]; then
+if [[ $cask == 1 ]]; then
 	step "audit the zenvik-gui cask"
 	brew audit --strict --online --cask chad3814/tap/zenvik-gui
 	step "install the zenvik-gui cask"
@@ -87,6 +94,8 @@ if [[ $formula_only == 0 ]]; then
 	fi
 	step "uninstall the zenvik-gui cask with --zap"
 	brew uninstall --cask --zap chad3814/tap/zenvik-gui
+elif [[ ${1:-} != --formula-only ]]; then
+	echo "check.sh: skipped the zenvik-gui cask outside CI (it would replace /Applications/Zenvik.app and --zap its data); pass --with-cask to include it"
 fi
 
 echo "check.sh: all checks passed"

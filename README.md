@@ -12,4 +12,4 @@ Installing by the full name, as above, also trusts that formula or cask, which H
 - `zenvik` builds from source and installs [MKVToolNix](https://mkvtoolnix.download) (for `mkvmerge`) with it. It works on macOS and Linux.
 - `zenvik-gui` installs the signed, notarized `Zenvik.app` from the release's disk image. The app includes its own `mkvmerge`.
 
-zenvik's release workflow updates these files on every release, after `check.sh` has proved they install. To check by hand: `./check.sh` (macOS), or `./check.sh --formula-only` (Linux).
+zenvik's release workflow updates these files on every release, after `check.sh` has proved they install. To check by hand, run `./check.sh`. It installs and tests the formula; on macOS, `./check.sh --with-cask` also installs the cask, which replaces `/Applications/Zenvik.app` and then removes it along with the app's settings and saved queue. Run `test/check_test.sh` to test `check.sh` itself.
